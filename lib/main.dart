@@ -1,5 +1,6 @@
 import 'package:examen_flutter/kernel/widgets/navigation/menu.dart';
 import 'package:examen_flutter/kernel/widgets/splash/splash.dart';
+import 'package:examen_flutter/modules/profile/adapters/screens/details_profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MainApp extends StatelessWidget {
         routes: {
           '/': (context) => const Splash(),
           '/menu': (context) => const Menu(),
-
+           '/shop/detail-shop': (context) => const DetailsProfile(),
         });
   }
 }

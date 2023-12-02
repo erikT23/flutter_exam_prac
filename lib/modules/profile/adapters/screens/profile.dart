@@ -1,145 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  var isOpened = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _setOpenedState();
+  }
+
+  _setOpenedState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setInt('isOpened', 1);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        const Padding(padding: EdgeInsets.only(top: 20.0)),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Icon(
-              Icons.upload,
-              color: Colors.black,
+      body: Column(
+        children: [
+          Center(
+            child: Image.asset(
+              "assets/images/avatar.png",
+              height: 120,
             ),
-            Icon(
-              Icons.details,
-              color: Colors.black,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/gris.jpg', width: 200, height: 150),
-          ],
-        ),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Padding(padding: EdgeInsets.only(top: 10.0)),
-          Column(children: [
-            InkWell(
-              child: const Text(
-                'Roy Salgado',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, '/profile/details', arguments: {
-                  'name': 'Roy Salgado',
-                });
-              },
-            ),
-            const Padding(padding: EdgeInsets.only(top: 10.0)),
-            const Text(
-              '1 follower - 2 following',
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-          ])
-        ]),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-              onPressed: () {},
-              child: const Text('Created'),
-            ),
-            const Padding(padding: EdgeInsets.only(right: 10.0)),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-              onPressed: () {},
-              child: const Text('Saved'),
-            ),
-          ],
-        ),
-        const Padding(padding: EdgeInsets.only(top: 30.0)),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Icon(
-              Icons.more_horiz,
-              color: Colors.black,
-            ),
-            Icon(
-              Icons.add,
-              color: Colors.black,
-            ),
-          ],
-        ),
-        const Padding(padding: EdgeInsets.only(top: 30.0)),
-        const Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Card(
-                color: Colors.grey,
-                child: SizedBox(
-                  width: 180,
-                  height: 180,
-                  child: Column(
-                    children: [
-                      Padding(padding: EdgeInsets.only(top: 10.0)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Card(
-                color: Colors.grey,
-                child: SizedBox(
-                  width: 180,
-                  height: 180,
-                  child: Column(
-                    children: [
-                      Padding(padding: EdgeInsets.only(top: 10.0)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Card(
-                color: Colors.grey,
-                child: SizedBox(
-                  width: 180,
-                  height: 180,
-                  child: Column(
-                    children: [
-                      Padding(padding: EdgeInsets.only(top: 10.0)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
-      ],
-    ));
+          ),
+          const Text(
+            "Erik Tapia",
+            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+          ),
+          Row(
+              children: isOpened == 0
+                  ? <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          _setOpenedState;
+                        },
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(200, 40),
+                            backgroundColor: Colors.blue),
+                        child: const Text("Iniciar Sesion"),
+                      ),
+                      Spacer(),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(50, 40),
+                            backgroundColor: Colors.grey),
+                        child: const Text("..."),
+                      )
+                    ]
+                  : <Widget>[
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(200, 40),
+                            backgroundColor: Colors.blue),
+                        child: const Text("Abrir perfil"),
+                      ),
+                      Spacer(),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(50, 40),
+                            backgroundColor: Colors.grey),
+                        child: const Text("..."),
+                      )
+                    ])
+        ],
+      ),
+    );
   }
 }

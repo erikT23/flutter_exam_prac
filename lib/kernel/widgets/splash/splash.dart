@@ -1,35 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
+ 
   const Splash({super.key});
 
   @override
   State<Splash> createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> {
-  var isOpened = 0;
 
+class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    _setOpenedState();
-  }
-
-  _setOpenedState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isOpened = prefs.getInt('isOpened') ?? 0;
-    });
-
-    if (isOpened == 1) {
-      Navigator.pushReplacementNamed(context, '/menu');
-    } else {
-      prefs.setInt('isOpened', 1);
-      Future.delayed(const Duration(seconds: 5),
-          () => Navigator.pushReplacementNamed(context, '/menu'));
-    }
+    Future.delayed(const Duration(seconds: 2),
+        () => Navigator.pushReplacementNamed(context, '/menu'));
   }
 
   @override
@@ -38,13 +23,23 @@ class _SplashState extends State<Splash> {
       body: Center(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: isOpened == 0
-                  ? <Widget>[
-                      Image.asset('assets/images/pinterest.png',
-                          width: 200, 
-                          height: 150),
-                    ]
-                  : <Widget>[])),
+              children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 24),
+              child: Image.asset(
+                'assets/images/Facebook.jpg',
+                width: 200,
+                height: 150,
+              ),
+            ),
+            const Text(
+              "Facebook",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+            )
+          ])),
     );
   }
 }

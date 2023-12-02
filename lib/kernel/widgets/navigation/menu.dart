@@ -28,7 +28,13 @@ class _MenuState extends State<Menu> {
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
-        children: const [Home(), Search(), NoDesign(), ProfileInstagram(), ProfileStack()],
+        children: const [
+          Profile(),
+          Search(),
+          NoDesign(),
+          ProfileInstagram(),
+          ProfileStack()
+        ],
       ),
       bottomNavigationBar: BottomNavigationTab(
           selectedIndex: _selectedIndex, onItemTapped: _onItemTapped),
